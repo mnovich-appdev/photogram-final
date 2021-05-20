@@ -15,6 +15,56 @@
   </head>
 
   <body>
+    <nav>
+      <ul>
+
+        <li>
+          <a href="/users">
+            All Users
+          </a>
+        </li>
+
+        <li>
+          <a href="/photos">
+            All Public Photos
+          </a>
+        </li>
+
+        <% if session.fetch(:user_id) == nil %>
+
+          <li>
+            <a href="/user_sign_in">
+              Sign In
+            </a>
+          </li>
+
+          <li>
+            <a href="/user_sign_up">
+              Sign Up
+            </a>
+          </li>
+
+        <% elsif session.fetch(:user_id) != nil %>
+
+          <li>
+            <a href="/edit_user_profile">
+              <% # Make this a dynamic link %>
+              Matt
+            </a>
+          </li>
+
+          <li>
+            <a href="/user_sign_out">
+              Sign Out
+            </a>
+          </li>
+
+        <% end %>
+
+      </ul>
+    </nav>
+
     <%= yield %>
+
   </body>
 </html>
