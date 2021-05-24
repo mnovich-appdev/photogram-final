@@ -13,6 +13,8 @@
 #
 class Photo < ApplicationRecord
 
+  mount_uploader :image, ImageUploader
+
   belongs_to(:photo_owner, {:class_name => "User", :foreign_key => "owner_id"})
 
 end
