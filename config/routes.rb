@@ -76,6 +76,13 @@ Rails.application.routes.draw do
 
   #------------------------------
 
+  # Routes for Users:
+  
+  # READ
+  get("users", {:controller => "users", :action => "index"})
+ 
+  #------------------------------
+
   # Routes for the User account:
 
   # SIGN UP FORM
@@ -103,8 +110,9 @@ Rails.application.routes.draw do
              
   #------------------------------
 
-  # HOMEPAGE
+  # Other routes:
 
+  # HOMEPAGE
   get("/", {:controller => "users", :action => "index"})
 
 end

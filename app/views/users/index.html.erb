@@ -1,0 +1,44 @@
+<h1>
+  List of Users
+</h1>
+
+<table border="1">
+
+  <tr>
+
+    <th>
+      Username
+    </th>
+
+    <th>
+      Private?
+    </th>
+
+    <th>
+    </th>
+
+  </tr>
+
+  <% @list_of_users.each do |display| %>
+
+  <tr>
+
+    <td>
+      <%=display.username%>
+    </td>
+
+    <td>
+      <%=display.private_text%>
+    </td>
+
+    <td>
+      <a href="/users/<%=display.id%>">
+        Show Details
+      </a>
+    </td>
+
+  </tr>
+
+  <% end %>
+
+</table>
