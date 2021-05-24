@@ -1,63 +1,24 @@
 <div>
-  <div>
-    <h1>
-      List of Photos
-    </h1>
-  </div>
+  <h1>
+    List of Photos
+  </h1>
 </div>
 
 <div>
-  <div>
-    <h2>
-      Add a new photo
-    </h2>
+  <% if session.fetch(:user_id) !=nil %>
 
-    <form action="/insert_photo" method="post">
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+    <form action="/insert_photo" method="post" enctype="multipart/form-data">
+      <label for="browser_input">Image</label>
+      <input id="browser_input" type="file" name="query_image">
 
-        <textarea id="caption_box" name="query_caption" rows="3"></textarea>
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id">
-      </div>
-
-      <div>
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="query_image">
-      </div>
+      <label for="browser_caption">Caption</label>
+      <textarea id="browser_caption" name="query_catpion" placeholder="Enter a caption for the photo..."></textarea>
 
       <button>
-        Create photo
+        Add Photo
       </button>
-    </form>
-  </div>
+
+  <% end %>
 </div>
 
 <div>
@@ -91,39 +52,39 @@
     </tr>
 
     <% @list_of_photos.each do |display| %>
-    <% if display.photo_owner.private == false %>
+      <% if display.photo_owner.private == false %>
 
-    <tr>
+        <tr>
 
-      <td>
-        <img src="<%= display.image %>">
-      </td>
+          <td>
+            <img src="<%= display.image %>">
+          </td>
 
-      <td>
-        <%= display.caption %>
-      </td>
+          <td>
+            <%= display.caption %>
+          </td>
 
-      <td>
-        <%= display.photo_owner.username %>
-      </td>
+          <td>
+            <%= display.photo_owner.username %>
+          </td>
 
-      <td>
-        <%= time_ago_in_words(display.created_at) %>
-      </td>
+          <td>
+            <%= time_ago_in_words(display.created_at) %>
+          </td>
 
-      <td>
-        <%= display.likes_count %>
-      </td>
+          <td>
+            <%= display.likes_count %>
+          </td>
 
-      <td>
-        <a href="/photos/<%= display.id %>">
-          Show Details
-        </a>
-      </td>
+          <td>
+            <a href="/photos/<%= display.id %>">
+              Show Details
+            </a>
+          </td>
 
-    </tr>
+        </tr>
 
-    <% end %>
+      <% end %>
     <% end %>
 
   </table>

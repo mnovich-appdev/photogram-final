@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo #<%= @selected_photo.id %> details
     </h1>
 
     <div>
@@ -12,7 +12,7 @@
       </div>
 
       <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
+        <a href="/delete_photo/<%= @selected_photo.id %>">
           Delete photo
         </a>
       </div>
@@ -23,49 +23,49 @@
         Caption
       </dt>
       <dd>
-        <%= @the_photo.caption %>
+        <%= @selected_photo.caption %>
       </dd>
 
       <dt>
         Comments count
       </dt>
       <dd>
-        <%= @the_photo.comments_count %>
+        <%= @selected_photo.comments_count %>
       </dd>
 
       <dt>
         Likes count
       </dt>
       <dd>
-        <%= @the_photo.likes_count %>
+        <%= @selected_photo.likes_count %>
       </dd>
 
       <dt>
         Owner
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= @selected_photo.owner_id %>
       </dd>
 
       <dt>
         Image
       </dt>
       <dd>
-        <%= @the_photo.image %>
+        <%= @selected_photo.image %>
       </dd>
 
       <dt>
         Created at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
+        <%= time_ago_in_words(@selected_photo.created_at) %> ago
       </dd>
 
       <dt>
         Updated at
       </dt>
       <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
+        <%= time_ago_in_words(@selected_photo.updated_at) %> ago
       </dd>
     </dl>
   </div>
@@ -80,13 +80,13 @@
       Edit photo
     </h2>
 
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+    <form action="/modify_photo/<%= @selected_photo.id %>"  method="post" >
       <div>
         <label for="caption_box">
           Caption
         </label>
 
-        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
+        <textarea id="caption_box" name="query_caption"><%= @selected_photo.caption %></textarea>
       </div>
 
       <div>
@@ -94,7 +94,7 @@
           Comments count
         </label>
 
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
+        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @selected_photo.comments_count %>">
       </div>
 
       <div>
@@ -102,7 +102,7 @@
           Likes count
         </label>
 
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
+        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @selected_photo.likes_count %>">
       </div>
 
       <div>
@@ -110,7 +110,7 @@
           Owner
         </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
+        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @selected_photo.owner_id %>">
       </div>
 
       <div>
@@ -118,7 +118,7 @@
           Image
         </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
+        <input type="text" id="image_box" name="query_image" value="<%= @selected_photo.image %>">
       </div>
 
       <button>
