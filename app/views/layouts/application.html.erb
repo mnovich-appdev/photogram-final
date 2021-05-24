@@ -45,7 +45,7 @@
             </a>
           </li>
 
-        <% elsif session.fetch(:user_id) != nil %>
+        <% else %>
 
           <li>
             <a href="/edit_user_profile">
@@ -64,6 +64,12 @@
 
       </ul>
     </nav>
+
+    <% if notice.present? %>
+      <div>
+        <%= notice %>
+      </div>
+    <% end %>
 
     <%= yield %>
 
