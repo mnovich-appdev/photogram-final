@@ -1,12 +1,10 @@
 <div>
   <div>
     <h1>
-      List of all photos
+      List of Photos
     </h1>
   </div>
 </div>
-
-<hr>
 
 <div>
   <div>
@@ -62,89 +60,71 @@
   </div>
 </div>
 
-<hr>
 <div>
-  <div>
-    <table>
-      <tr>
-        <th>
-          ID
-        </th>
+  <table border="1">
 
-        <th>
-          Caption
-        </th>
+    <tr>
 
-        <th>
-          Comments count
-        </th>
+      <th>
+        Image
+      </th>
 
-        <th>
-          Likes count
-        </th>
+      <th>
+        Caption
+      </th>
 
-        <th>
-          Owner
-        </th>
+      <th>
+        Owner
+      </th>
 
-        <th>
-          Image
-        </th>
+      <th>
+        Posted
+      </th>
 
-        <th>
-          Created at
-        </th>
+      <th>
+        Likes
+      </th>
 
-        <th>
-          Updated at
-        </th>
+      <th>
+      </th>
 
-        <th>
-        </th>
-      </tr>
+    </tr>
 
-      <% @list_of_photos.each do |a_photo| %>
-      <tr>
-        <td>
-          <%= a_photo.id %>
-        </td>
+    <% @list_of_photos.each do |display| %>
+    <% if display.photo_owner.private == false %>
 
-        <td>
-          <%= a_photo.caption %>
-        </td>
+    <tr>
 
-        <td>
-          <%= a_photo.comments_count %>
-        </td>
+      <td>
+        <img src="<%= display.image %>">
+      </td>
 
-        <td>
-          <%= a_photo.likes_count %>
-        </td>
+      <td>
+        <%= display.caption %>
+      </td>
 
-        <td>
-          <%= a_photo.owner_id %>
-        </td>
+      <td>
+        <%= display.photo_owner.username %>
+      </td>
 
-        <td>
-          <%= a_photo.image %>
-        </td>
+      <td>
+        <%= time_ago_in_words(display.created_at) %>
+      </td>
 
-        <td>
-          <%= time_ago_in_words(a_photo.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_photo.updated_at) %> ago
-        </td>
+      <td>
+        <%= display.likes_count %>
+      </td>
 
-        <td>
-          <a href="/photos/<%= a_photo.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
+      <td>
+        <a href="/photos/<%= display.id %>">
+          Show Details
+        </a>
+      </td>
+
+    </tr>
+
+    <% end %>
+    <% end %>
+
+  </table>
 </div>
-
-<hr>

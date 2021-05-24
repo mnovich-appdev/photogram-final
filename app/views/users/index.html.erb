@@ -1,44 +1,48 @@
-<h1>
-  List of Users
-</h1>
+<div>
+  <h1>
+    List of Users
+  </h1>
+</div>
 
-<table border="1">
+<div>
+  <table border="1">
 
-  <tr>
+    <tr>
 
-    <th>
-      Username
-    </th>
+      <th>
+        Username
+      </th>
 
-    <th>
-      Private?
-    </th>
+      <th>
+        Private?
+      </th>
 
-    <th>
-    </th>
+      <th>
+      </th>
 
-  </tr>
+    </tr>
 
-  <% @list_of_users.each do |display| %>
+    <% @list_of_users.each do |display| %>
 
-  <tr>
+    <tr>
 
-    <td>
-      <%=display.username%>
-    </td>
+      <td>
+        <%=display.username%>
+      </td>
 
-    <td>
-      <%=display.private_text%>
-    </td>
+      <td>
+        <%=display.private_text%>
+      </td>
 
-    <td>
-      <a href="/users/<%=display.id%>">
-        Show Details
-      </a>
-    </td>
+      <td>
+        <a href="/users/<%=display.id%>">
+          Show Details
+        </a>
+      </td>
 
-  </tr>
+    </tr>
 
-  <% end %>
+    <% end %>
 
-</table>
+  </table>
+</div>

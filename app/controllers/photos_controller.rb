@@ -1,8 +1,8 @@
 class PhotosController < ApplicationController
-  def index
-    matching_photos = Photo.all
 
-    @list_of_photos = matching_photos.order({ :created_at => :desc })
+  def index
+    photo_database = Photo.all
+    @list_of_photos = photo_database.order({ :created_at => :desc })
 
     render({ :template => "photos/index.html.erb" })
   end
