@@ -17,6 +17,10 @@ class User < ApplicationRecord
   validates :email, :presence => true
   has_secure_password
 
+  has_many(:followers, {:class_name => "FollowRequest", :foreign_key => "recipient_id"})
+
+  has_many(:following, {:class_name => "FollowRequest", :foreign_key => "sender_id"})
+
   def private_text
 
     if self.private == true

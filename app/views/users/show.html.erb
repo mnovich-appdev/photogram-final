@@ -1,0 +1,31 @@
+<div> 
+  <h1>
+    <%= @selected_user.username %>
+  </h1>
+</div>
+
+<div>
+
+  <dt>Private</dt>
+  <dd><%= @selected_user.private %></dd>
+
+  <dt>Followers</dt>
+  <dd><%= @selected_user.followers.where(:status => "accepted").count %></dd>
+
+    <% if @current_user.following.where(:status => "accepted").where(:recipient_id => @selected_user.id).at(0) == nil %>
+      <form action="/insert_follow_request" method="post">
+        <input type="hidden" name="query_recipient_id" value="<%= @selected_user.id%>">
+
+        <button>
+          Follow
+        </button>
+      </form>
+      
+    <% else %>
+      Unfollow Button
+    <% end %>
+
+  <dt>Following</dt>
+  <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+
+</div>
