@@ -44,11 +44,19 @@
       <h4>
         Pending Follow Requests
       </h4>
+        
+        <% pending_follow_requests = Array.new %>
+
+        <% @selected_user.following_pending.each do |action| %>
+          <%= action.pending_requests.username %>
+        <% end %>
+
+        <%= pending_follow_requests.to_sentence %>
 
     </dd>
 
     <dt>Following</dt>
-    <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+    <dd><%= @selected_user.following_accepted.count %></dd>
 
     <dt>Edit User</dt>
     <dd>
