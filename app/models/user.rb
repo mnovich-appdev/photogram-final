@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many(:following_accepted, -> {where status: "accepted"}, {:class_name => "FollowRequest", :foreign_key => "sender_id"})
 
+  has_many(:following_pending, -> {where status: "pending"}, {:class_name => "FollowRequest", :foreign_key => "sender_id"})
+
   has_many(:owned_photos, {:class_name => "Photo", :foreign_key => "owner_id"})
 
   has_many(:feed_users, {:through => :following_accepted, :source => :following_user})
