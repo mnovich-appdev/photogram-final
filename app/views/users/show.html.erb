@@ -9,29 +9,61 @@
   <dt>Private</dt>
   <dd><%= @selected_user.private %></dd>
 
-  <dt>Followers</dt>
-  <dd><%= @accepted_requests.count %></dd>
+  <% if @selected_user.id != session.fetch(:user_id) %>
 
-    <% if @accepted_requests.where(:recipient_id => @selected_user.id).last == nil %>
+    <dt>Followers</dt>
+    <dd><%= @accepted_requests.count %></dd>
 
-      <form action="/insert_follow_request" method="post">
-        <input type="hidden" name="query_recipient_id" value="<%= @selected_user.id%>">
+      <% if @accepted_requests.where(:recipient_id => @selected_user.id).last == nil %>
 
-        <button>
-          Follow
-        </button>
-      </form>
+        <form action="/insert_follow_request" method="post">
+          <input type="hidden" name="query_recipient_id" value="<%= @selected_user.id%>">
 
-    <% elsif @accepted_requests.where(:recipient_id => @selected_user.id).last != nil %>
+          <button>
+            Follow
+          </button>
+        </form>
 
-      <a href="/delete_follow_request/<%= @accepted_requests.where(:recipient_id => @selected_user.id).last.id %>">
-        Unfollow
-      </a>
-      
-    <% end %>
+      <% elsif @accepted_requests.where(:recipient_id => @selected_user.id).last != nil %>
 
-  <dt>Following</dt>
-  <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+        <a href="/delete_follow_request/<%= @accepted_requests.where(:recipient_id => @selected_user.id).last.id %>">
+          Unfollow
+        </a>
+        
+      <% end %>
+
+      <dt>Following</dt>
+      <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+
+  <% else %>
+
+    <dt>Followers</dt>
+    <dd><%= @selected_user.followers.where(:status => "accepted").count %></dd>
+
+    <dd>
+      <h4>
+        Pending Follow Requests
+      </h4>
+    </dd>
+
+    <dt>Following</dt>
+    <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+
+    <dt>Edit User</dt>
+    <dd>
+      <form action="/modify_user/<%= @selected_user.id %>" method="post">
+      <label for="browser_username">Username</label>
+        <input id="browser_username" type="text" name="query_username" placeholder="Enter a username..." value="<%= @selected_user.username %>">
+
+      <label for="browser_private">Private?</label>
+        <input id="browser_private" type="checkbox" name="query_private">
+
+      <button>
+        Update User
+      </button>
+    </dd>
+
+  <% end %>
 
 </div>
 
