@@ -3,20 +3,13 @@
     Photo #<%= @selected_photo.id %> details
   </h1>
 </div>
-
-    <div>
-      <div>
-        <a href="/photos">
-          Go back
-        </a>
-      </div>
-
+    <% if @selected_photo.photo_owner.id == session.fetch(:user_id) %>
       <div>
         <a href="/delete_photo/<%= @selected_photo.id %>">
-          Delete photo
+          Delete this photo
         </a>
       </div>
-    </div>
+    <% end %>
 
     <dl>
       <dt>
