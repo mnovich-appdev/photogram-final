@@ -10,9 +10,10 @@
   <dd><%= @selected_user.private %></dd>
 
   <dt>Followers</dt>
-  <dd><%= @selected_user.followers.where(:status => "accepted").count %></dd>
+  <dd><%= @accepted_requests.count %></dd>
 
-    <% if @current_user.following.where(:status => "accepted").where(:recipient_id => @selected_user.id).at(0) == nil %>
+    <% if @accepted_requests.where(:recipient_id => @selected_user.id).last == nil %>
+    
       <form action="/insert_follow_request" method="post">
         <input type="hidden" name="query_recipient_id" value="<%= @selected_user.id%>">
 
@@ -20,9 +21,17 @@
           Follow
         </button>
       </form>
+
+    <% elsif @accepted_requests.where(:recipient_id => @selected_user.id).last != nil %>
+
+      <form action="/delete_follow_request/<%= @accepted_requests.where(:recipient_id => @selected_user.id).last.id %>">
+        <input type="hidden" name="query_recipient_id" value="<%= @selected_user.id%>">
+
+        <button>
+          Unfollow
+        </button>
+      </form>
       
-    <% else %>
-      Unfollow Button
     <% end %>
 
   <dt>Following</dt>

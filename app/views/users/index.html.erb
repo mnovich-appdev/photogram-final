@@ -83,15 +83,36 @@
            <%= display.private_text %>
           </td>
 
-          <td>
-            <form action="/insert_follow_request" method="post">  
-              <input type="hidden" name="query_recipient_id" value="<%= display.id %>">
+          <% if display.followers.where(:status => "accepted").where(:sender_id => @current_user.id).last != nil %>
 
-              <button>
-                Follow
-              </button>
-            </form>
-          </td>
+            <td>
+              <a href="/delete_follow_request/<%= display.followers.where(:status => "accepted").where(:sender_id => @current_user.id).last.id %>">
+                Unfollow
+              </a>
+            </td>
+
+          <% elsif display.followers.where(:status => "pending").where(:sender_id => @current_user.id).last != nil %>
+            
+            <td>
+              Request sent.
+              <a href="/delete_follow_request/<%= display.followers.where(:status => "pending").where(:sender_id => @current_user.id).last.id %>">
+                Cancel
+              </a>
+            </td>
+
+          <% elsif display.followers.where(:status => "accepted").where(:sender_id => @current_user.id).last == nil %>
+
+            <td>
+              <form action="/insert_follow_request" method="post">  
+                <input type="hidden" name="query_recipient_id" value="<%= display.id %>">
+
+                <button>
+                  Follow
+                </button>
+              </form>
+            </td>
+
+          <% end %>
 
           <td>
             <a href="/users/<%= display.username %>">
