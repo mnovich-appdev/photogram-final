@@ -11,5 +11,7 @@
 class Like < ApplicationRecord
 
     belongs_to(:like_owner, {:class_name => "User", :foreign_key => "fan_id"})
+
+    belongs_to(:like_photo_owner, {:class_name => "Photo", :foreign_key => "photo_id"})
     
 end

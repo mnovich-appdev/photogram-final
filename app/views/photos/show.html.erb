@@ -3,6 +3,7 @@
     Photo #<%= @selected_photo.id %> details
   </h1>
 </div>
+
     <% if @selected_photo.photo_owner.id == session.fetch(:user_id) %>
       <div>
         <a href="/delete_photo/<%= @selected_photo.id %>">
@@ -67,9 +68,34 @@
         <%= username_array.to_sentence %>
       </dd>
 
+      <dt>
+        Add a fan
+      </dt>
+
+      <% if session.fetch(:user_id) != nil %>
+        <% if Like.where(:photo_id => @selected_photo.id, :fan_id => session.fetch(:user_id)).at(0) == nil%>
+
+          <dd>
+            <form action="/insert_like" method="post">
+              <input type="hidden" value="<%= @selected_photo.id %>" name="query_photo_id">
+              <input type="hidden" value="<%= session.fetch(:user_id) %>" name="query_fan_id">
+              <button>Like</button>
+            </form>
+          </dd>
+
+        <% else %>
+
+          <dd>
+            <a href="/delete_like/<%= Like.where(:photo_id => @selected_photo.id, :fan_id => session.fetch(:user_id)).at(0).id %>">
+              Unlike
+            </a>
+          </dd>
+
+        <% end %>
+
+      <% end %>
+
     </dl>
-  </div>
-</div>
 
 <div>
   <table>
@@ -111,59 +137,74 @@
 
 <hr>
 
-
-<div>
+<% if @selected_photo.photo_owner.id == session.fetch(:user_id) %>
   <div>
-    <h2>
-      Edit photo
-    </h2>
+    <div>
+      <h2>
+        Edit photo
+      </h2>
 
-    <form action="/modify_photo/<%= @selected_photo.id %>"  method="post" >
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
+      <form action="/modify_photo/<%= @selected_photo.id %>"  method="post" >
+        <div>
+          <label for="caption_box">
+            Caption
+          </label>
 
-        <textarea id="caption_box" name="query_caption"><%= @selected_photo.caption %></textarea>
-      </div>
+          <textarea id="caption_box" name="query_caption"><%= @selected_photo.caption %></textarea>
+        </div>
 
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
+        <div>
+          <label for="comments_count_box">
+            Comments count
+          </label>
 
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @selected_photo.comments_count %>">
-      </div>
+          <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @selected_photo.comments_count %>">
+        </div>
 
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
+        <div>
+          <label for="likes_count_box">
+            Likes count
+          </label>
 
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @selected_photo.likes_count %>">
-      </div>
+          <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @selected_photo.likes_count %>">
+        </div>
 
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
+        <div>
+          <label for="owner_id_box">
+            Owner
+          </label>
 
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @selected_photo.owner_id %>">
-      </div>
+          <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @selected_photo.owner_id %>">
+        </div>
 
-      <div>
-        <label for="image_box">
-          Image
-        </label>
+        <div>
+          <label for="image_box">
+            Image
+          </label>
 
-        <input type="text" id="image_box" name="query_image" value="<%= @selected_photo.image %>">
-      </div>
+          <input type="text" id="image_box" name="query_image" value="<%= @selected_photo.image %>">
+        </div>
 
-      <button>
-        Update photo
-      </button>
-    </form>
+        <button>
+          Update photo
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+<% end %>
 
-<hr>
+<% if session.fetch(:user_id) != nil %>
+
+  <h3>Add a new comment</h3>
+
+  <form action="/insert_comment" method="post">
+    <input type="hidden" value="<%= @selected_photo.id %>" name="query_photo_id">
+    <input type="hidden" value="<%= session.fetch(:user_id) %>" name="query_author_id">
+
+    <label for="browser_comment">Comment</label>
+    <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+    <button>Add comment</button>
+  </form>
+
+<% end %>
