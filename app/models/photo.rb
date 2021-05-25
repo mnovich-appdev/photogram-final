@@ -19,4 +19,8 @@ class Photo < ApplicationRecord
 
   has_many(:photo_fans, {:class_name => "Like", :foreign_key => "photo_id"})
 
+  has_many(:photo_comment, {:class_name => "Comment", :foreign_key => "photo_id"})
+
+  has_many(:photo_fan_users, {:through => :photo_fans, :source => :like_owner})
+
 end

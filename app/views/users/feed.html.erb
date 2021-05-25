@@ -1,0 +1,122 @@
+<div> 
+  <h1>
+    <%= @selected_user.username %>
+  </h1>
+</div>
+
+<div>
+
+  <dt>Private</dt>
+  <dd><%= @selected_user.private %></dd>
+
+  <dt>Followers</dt>
+  <dd><%= @accepted_requests.count %></dd>
+
+  <dt>Following</dt>
+  <dd><%= @selected_user.following.where(:status => "accepted").count %></dd>
+
+</div>
+
+<div>
+  <nav>
+
+    <ul>
+
+      <li>
+        <a href="/users/<%= @selected_user.username %>">
+          Profile
+        </a>
+      </li>
+    
+      <li>
+        <a href="/users/<%= @selected_user.username %>/liked_photos">
+          Liked photos
+        </a>
+      </li>
+    
+      <li>
+        <a href="/users/<%= @selected_user.username %>/feed">
+          Feed
+        </a>
+      </li>
+
+    
+      <li>
+        <a href="/users/<%= @selected_user.username %>/discover">
+          Discover
+        </a>
+      </li>
+
+    </ul>
+
+  </nav>
+</div>
+
+<div>
+
+  <h2>
+    Feed (<%= @selected_user.owned_photos.count%>)
+  </h2>
+
+  <table border="1">
+
+    <tr>
+      <th>
+        Image
+      </th>
+
+      <th>
+        Owner
+      </th>
+
+      <th>
+        Caption
+      </th>
+
+      <th>
+        Posted
+      </th>
+
+      <th>
+        Likes
+      </th>
+
+      <th>
+      </th>
+    </tr>
+
+    <% @selected_user.owned_photos.each do |display| %>
+
+        <tr>
+          <td>
+            <img src="<%= display.image %>">
+          </td>
+
+          <td>
+            <%= @selected_user.username %>
+          </td>
+
+          <td>
+            <%= display.caption %>
+          </td>
+
+          <td>
+            <%= time_ago_in_words(display.created_at) %> ago
+          </td>
+
+          <td>
+            <%= display.likes_count %>
+          </td>
+
+          <td>
+            <a href="/photos/<%= display.id %>">
+              Show Details
+            </a>
+          </td>
+        </tr>
+
+    <% end %>
+
+  </table>
+
+</div>

@@ -65,11 +65,55 @@
         Fans
       </dt>
       <dd>
-        <%= @selected_photo.photo_fans %>
+        <% username_array = Array.new %>
+
+          <% @selected_photo.photo_fan_users.each do |display| %>
+            <% username_array.push(display.username) %>
+          <% end %>
+
+        <%= username_array.to_sentence %>
       </dd>
 
     </dl>
   </div>
+</div>
+
+<div>
+  <table>
+
+    <tr>
+      <th>
+        Commenter
+      </th>
+
+      <th>
+        Comment
+      </th>
+
+      <th>
+        Posted
+      </th>
+    </tr>
+
+    <% @selected_photo.photo_comment.each do |display| %>
+
+      <tr>
+        <td>
+          <%= display.comment_author.username %>
+        </td>
+
+        <td>
+          <%= display.body %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(display.created_at) %> ago
+        </td>
+      </tr>
+
+    <% end %>
+
+  </table>
 </div>
 
 <hr>
