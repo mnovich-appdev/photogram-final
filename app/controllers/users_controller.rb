@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  # INDEX PAGE
-
   def index
     user_database = User.all
     @list_of_users = user_database.order({:id => :asc})
@@ -18,9 +16,11 @@ class UsersController < ApplicationController
     matching_user = User.where({:username => selected_username})
     @selected_user = matching_user.at(0)
 
+
     current_user_id = session.fetch(:user_id)
     current_user = User.where(:id => current_user_id)
     @current_user = current_user.at(0)
+
 
     @accepted_requests = @selected_user.followers.where(:status => "accepted")
 

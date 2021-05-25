@@ -53,11 +53,20 @@
 </div>
 
 <div>
-
   <h2>
-    Feed (<%= @selected_user.feed_photos.count %>)
-  </h2>
+    <% photo_count_array = Array.new %>
 
+    <% @selected_user.following.where(:status => "accepted").each do |action| %>
+
+      <% photo_count_array.push(User.where(:id => action.recipient_id).at(0).owned_photos.count) %>
+
+    <% end %>
+
+    Feed (<%= photo_count_array.sum %>)
+  </h2>
+</div>
+
+<div>
   <table border="1">
 
     <tr>
@@ -85,15 +94,15 @@
       </th>
     </tr>
 
-    <% @selected_user.owned_photos.each do |display| %>
-
+    <% @selected_user.feed_photos.each do |display| %>
+      <% if display.photo_owner.private == false %>
         <tr>
           <td>
             <img src="<%= display.image %>">
           </td>
 
           <td>
-            <%= @selected_user.username %>
+            <%= display.photo_owner.username %>
           </td>
 
           <td>
@@ -114,9 +123,8 @@
             </a>
           </td>
         </tr>
-
+      <% end %>
     <% end %>
 
   </table>
-
 </div>
