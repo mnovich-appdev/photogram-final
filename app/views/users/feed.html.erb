@@ -95,7 +95,7 @@
     </tr>
 
     <% @selected_user.feed_photos.each do |display| %>
-      <% if display.photo_owner.private == false %>
+
         <tr>
           <td>
             <img src="<%= display.image %>">
@@ -123,7 +123,7 @@
             </a>
           </td>
         </tr>
-      <% end %>
+
     <% end %>
 
   </table>
