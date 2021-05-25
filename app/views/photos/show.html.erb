@@ -20,6 +20,13 @@
 
     <dl>
       <dt>
+        Image
+      </dt>
+      <dd>
+        <img src="<%= @selected_photo.image %>">
+      </dd>
+
+      <dt>
         Caption
       </dt>
       <dd>
@@ -27,46 +34,40 @@
       </dd>
 
       <dt>
-        Comments count
-      </dt>
-      <dd>
-        <%= @selected_photo.comments_count %>
-      </dd>
-
-      <dt>
-        Likes count
-      </dt>
-      <dd>
-        <%= @selected_photo.likes_count %>
-      </dd>
-
-      <dt>
         Owner
       </dt>
       <dd>
-        <%= @selected_photo.owner_id %>
+        <%= @selected_photo.photo_owner.username %>
       </dd>
 
       <dt>
-        Image
-      </dt>
-      <dd>
-        <%= @selected_photo.image %>
-      </dd>
-
-      <dt>
-        Created at
+        Posted
       </dt>
       <dd>
         <%= time_ago_in_words(@selected_photo.created_at) %> ago
       </dd>
 
       <dt>
-        Updated at
+        Likes Count
       </dt>
       <dd>
-        <%= time_ago_in_words(@selected_photo.updated_at) %> ago
+        <%= @selected_photo.likes_count %>
       </dd>
+
+      <dt>
+        Comments Count
+      </dt>
+      <dd>
+        <%= @selected_photo.comments_count %>
+      </dd>
+
+      <dt>
+        Fans
+      </dt>
+      <dd>
+        <%= @selected_photo.photo_fans %>
+      </dd>
+
     </dl>
   </div>
 </div>
