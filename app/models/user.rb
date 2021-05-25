@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   has_many(:following, {:class_name => "FollowRequest", :foreign_key => "sender_id"})
 
+  has_many(:owned_photos, {:class_name => "Photo", :foreign_key => "owner_id"})
+
   def private_text
 
     if self.private == true
