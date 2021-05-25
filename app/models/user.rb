@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many(:owned_photos, {:class_name => "Photo", :foreign_key => "owner_id"})
 
+  has_many(:feed_photos, {:through, :source})
+
   def private_text
 
     if self.private == true
